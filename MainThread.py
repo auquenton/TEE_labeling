@@ -36,16 +36,22 @@ class MainThread(QMainWindow):
         self.ui.next_label.clicked.connect(self.next_onclicked)
         self.ui.prev_label.clicked.connect(self.prev_onclicked)
 
-        self.radioButton_group = QButtonGroup()
-        # 将11类别添加到同一按钮组中
-        for i in range(11):
-            self.radioButton_group.addButton(eval("self.ui.radioButton_" + str(i)), i)
-        self.radioButton_group.addButton(self.ui.radioButton_None, -100)
-        self.radioButton_group.addButton(self.ui.radioButton_others, -1)
+        self.classify_group = QButtonGroup()
+        # 将分类按钮添加到同一按钮组中
+        for i in range(13):
+            self.classify_group.addButton(eval("self.ui.radioButton_" + str(i)), i)
+        self.classify_group.addButton(self.ui.radioButton_None, -1)
         self.ui.radioButton_None.setVisible(False)
-        self.radioButton_group.buttonClicked.connect(self.label)
-
+        self.classify_group.buttonClicked.connect(self.label)
+        
+        self.qualify_group = QButtonGroup()
+        self.qualify_group.addButton(self.ui.radioButton_good, 0)
+        self.qualify_group.addButton(self.ui.radioButton_bad, 1)
+        self.qualify_group.buttonClicked.connect(self.qualify)
+        
         self.clsType = ClsType()
+        
+        
 
     def openFolder(self):
         foldername = QtWidgets.QFileDialog.getExistingDirectory(
@@ -61,7 +67,7 @@ class MainThread(QMainWindow):
             else:
                 logger.info("加载持久化数据")
                 self.cache.load(
-                    self.cache, load_cache_from_pkl(foldername + "/video_list.pkl")
+                    self.cache, load_cache_from_pkl(foldername + "/label_info.pkl")
                 )
                 self.cache.to_string(self.cache)
                 # self.cache.load_video_list_from_json(self.cache, folder_path=foldername)
@@ -74,9 +80,18 @@ class MainThread(QMainWindow):
                 f"{self.cache.pointer + 1} / {self.cache.video_count}"
             )
             label = self.cache.video_list[self.cache.pointer][1]
+            if label == -1:
+                label = "None"
             eval(
                 "self.ui.radioButton_"
-                + f"{ClsType.translate(label)}"
+                + f"{str(label)}"
+                + ".setChecked(True)"
+            )
+            quality = self.cache.video_list[self.cache.pointer][2]
+            quality_str = "good" if quality == 0 else "bad"
+            eval(
+                "self.ui.radioButton_"
+                + quality_str
                 + ".setChecked(True)"
             )
             print(self.cache.video_list)
@@ -107,9 +122,18 @@ class MainThread(QMainWindow):
                 f"{self.cache.pointer + 1} / {self.cache.video_count}"
             )
             label = self.cache.video_list[self.cache.pointer][1]
+            quality = self.cache.video_list[self.cache.pointer][2]
+            if label == -1:
+                label = "None"
             eval(
                 "self.ui.radioButton_"
-                + f"{ClsType.translate(label)}"
+                + f"{str(label)}"
+                + ".setChecked(True)"
+            )
+            quality_str = "good" if quality == 0 else "bad"
+            eval(
+                "self.ui.radioButton_"
+                + quality_str
                 + ".setChecked(True)"
             )
         else:
@@ -124,17 +148,32 @@ class MainThread(QMainWindow):
                 f"{self.cache.pointer + 1} / {self.cache.video_count}"
             )
             label = self.cache.video_list[self.cache.pointer][1]
+            quality = self.cache.video_list[self.cache.pointer][2]
+            if label == -1:
+                label = "None"
             eval(
                 "self.ui.radioButton_"
-                + f"{ClsType.translate(label)}"
+                + f"{str(label)}"
+                + ".setChecked(True)"
+            )
+            quality_str = "good" if quality == 0 else "bad"
+            eval(
+                "self.ui.radioButton_"
+                + quality_str
                 + ".setChecked(True)"
             )
         else:
             logger.info("已是第一个视频")
 
     def label(self):
-        checkedId = self.radioButton_group.checkedId()
-        self.cache.video_list[self.cache.pointer][1] = str(checkedId)
+        checkedId = self.classify_group.checkedId()
+        if checkedId != -1:
+            self.cache.video_list[self.cache.pointer][1] = checkedId
+        logger.info(self.cache.video_list)
+         
+    def qualify(self):
+        checkedId = self.qualify_group.checkedId()
+        self.cache.video_list[self.cache.pointer][2] = checkedId
         logger.info(self.cache.video_list)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:

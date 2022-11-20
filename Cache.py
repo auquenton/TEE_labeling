@@ -18,12 +18,11 @@ class Cache:
         print(folder_path)
         for root, dirs, files in os.walk(folder_path):
             for filename in files:
-                label = get_file_label(filename)
-                parts = filename.split("_cls")
-                if get_video_type(filename) == None or filename == "video_list.pkl":
+                # label = get_file_label(filename)
+                if get_video_type(filename) == None or filename == "label_info.pkl":
                     continue
                 else:
-                    self.video_list.append([folder_path + "/" + filename, label])
+                    self.video_list.append([folder_path + "/" + filename, -1, 0])
             break
 
         logger.info(f"video_list: {self.video_list}")
@@ -37,17 +36,20 @@ class Cache:
         self.video_count = 0
 
     def flush(self, opened_foldername):
-        for kv in self.video_list:
-            file_path = kv[0]
-            label = kv[1]
-            parts = file_path.split("_cls")
-            new_file_path = parts[0] + "_cls" + str(label)
-            kv[0] = new_file_path
-            os.rename(file_path, new_file_path)
-            logger.info(f"{file_path} -> {file_path}" + "_cls" + str(label))
-        logger.info("flush完成, 程序退出")
-        with open(opened_foldername + "/video_list.pkl", "wb") as f:
+        # for kv in self.video_list:
+        #     file_path = kv[0]
+        #     label = kv[1]
+        #     quality = kv[2]
+        #     parts = file_path.split("_cls")
+        #     new_file_path = parts[0] + "_cls" + str(label)
+        #     if quality != 0:
+        #         new_file_path = new_file_path + ""
+        #     kv[0] = new_file_path
+        #     os.rename(file_path, new_file_path)
+        #     logger.info(f"{file_path} -> {file_path}" + "_cls" + str(label))
+        with open(opened_foldername + "/label_info.pkl", "wb") as f:
             pickle.dump((Cache.video_list, Cache.video_count, Cache.pointer), f)
+        logger.info("flush完成, 程序退出")
 
     def load(self, tuple):
         print(tuple)
