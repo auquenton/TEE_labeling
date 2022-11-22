@@ -16,12 +16,25 @@ class Cache:
     def load_video_list_from_scratch(self, folder_path):
         self.fresh(self)
         print(folder_path)
+
         for root, dirs, files in os.walk(folder_path):
+
+            for dir in dirs:
+                for root_sub,dir_sub,files_sub in os.walk(folder_path+"/"+dir):
+                    for filename in files_sub:
+                        if get_video_type(filename) == None or filename == "label_info.pkl":
+                            continue
+                        else:
+                            logger.debug("video:"+folder_path+"/"+dir+"/"+filename)
+                            self.video_list.append([folder_path + "/" +dir+"/"+filename, -1, 0])
+                    break
+
             for filename in files:
                 # label = get_file_label(filename)
                 if get_video_type(filename) == None or filename == "label_info.pkl":
                     continue
                 else:
+                    logger.debug("video:"+folder_path+"/"+filename)
                     self.video_list.append([folder_path + "/" + filename, -1, 0])
             break
 

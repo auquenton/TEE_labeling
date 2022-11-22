@@ -2,7 +2,7 @@ import sys
 from ui import Ui_MainWindow
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QStyle, QButtonGroup
-from PyQt5 import QtGui
+from PyQt5 import QtGui,QtCore
 from PyQt5.QtGui import QIcon, QPixmap, QImage
 from Cache import Cache
 from PyQt5.QtCore import QTimer
@@ -10,6 +10,15 @@ from loguru import logger
 from DisplayThread import DisplayThread
 from utils import ClsType, is_video_list_file_exists, load_cache_from_pkl
 
+# class Mouse_action(QtWidgets.QLabel):
+#     def __init__(self,parent=None):
+#         super(Mouse_action,self).__init__(parent)
+        
+#     def mousePress(self,event):
+#         if event.buttons()==QtCore.Qt.LeftButton:
+#             logger.info()
+#         elif event.buttons()==QtCore.Qt.RightButton:
+#             print("you")
 
 class MainThread(QMainWindow):
     def __init__(self, parent=None):
@@ -19,7 +28,7 @@ class MainThread(QMainWindow):
         self.setWindowTitle("TEE-label")
         self.cache = Cache
         self.timer = QTimer()
-
+        # self.Mouse=Mouse_action()
         style = QApplication.style()
         import_folder = QtWidgets.QAction(
             style.standardIcon(QStyle.SP_FileIcon), "导入文件夹", self
@@ -35,7 +44,7 @@ class MainThread(QMainWindow):
 
         self.ui.next_label.clicked.connect(self.next_onclicked)
         self.ui.prev_label.clicked.connect(self.prev_onclicked)
-
+        # self.ui.next_label.addAction()
         self.classify_group = QButtonGroup()
         # 将分类按钮添加到同一按钮组中
         for i in range(13):
@@ -180,6 +189,12 @@ class MainThread(QMainWindow):
         logger.info("关闭窗口")
         self.cache.flush(self.cache, self.opened_foldername)
         return super().closeEvent(a0)
+    
+    def mousePressEvent(self,event):
+        if event.button()==QtCore.Qt.LeftButton:
+            self.prev_onclicked()
+        elif event.button()==QtCore.Qt.RightButton:
+            self.next_onclicked()
 
 
 if __name__ == "__main__":
