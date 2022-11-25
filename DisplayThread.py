@@ -42,5 +42,6 @@ class DisplayThread(QThread):
             self.frame_counter = 0
             self.capture.set(cv2.CAP_PROP_POS_FRAMES, 0)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        qimg = QImage(image.data, image.shape[1], image.shape[0], QImage.Format_RGB888)
+        qimg = QImage(
+            image.data, image.shape[1], image.shape[0], QImage.Format_RGB888)
         self.show_frame_signal.emit(qimg)

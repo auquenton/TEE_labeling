@@ -12,7 +12,8 @@ class VideoType(Enum):
 
 class ClsType:
     cls_dict = {
-        "-1": "others",
+        "": "None",
+        "-1": "None",
         "0": "0",
         "1": "1",
         "2": "2",
@@ -24,7 +25,8 @@ class ClsType:
         "8": "8",
         "9": "9",
         "10": "10",
-        "-100": "None",
+        "11": "11",
+        "12": "12",
     }
 
     @staticmethod
@@ -36,7 +38,8 @@ def get_video_type(file_path):
     if file_path == "":
         return VideoType.NULL
     try:
-        suffix = file_path.split("/")[-1][file_path.split("/")[-1].index(".") + 1 :]
+        suffix = file_path.split(
+            "/")[-1][file_path.split("/")[-1].index(".") + 1:]
     except Exception as e:
         logger.info("文件无后缀名")
         return VideoType.DCOM
@@ -48,13 +51,13 @@ def get_video_type(file_path):
 
 def get_file_label(filename):
     parts = filename.split("cls")
-    return "-100" if len(parts) == 1 else parts[1]
+    return "" if len(parts) == 1 else parts[1]
 
 
 def is_video_list_file_exists(foldername):
     for root, dirs, files in os.walk(foldername):
         break
-    return True if "video_list.pkl" in files else False
+    return True if "label_info.pkl" in files else False
 
 
 def load_cache_from_pkl(pkl_file):
