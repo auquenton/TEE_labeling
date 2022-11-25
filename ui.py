@@ -21,22 +21,25 @@ class Ui_MainWindow(object):
         self.display_label = QtWidgets.QLabel(self.centralwidget)
         self.display_label.setGeometry(QtCore.QRect(40, 40, 368, 500))
         self.display_label.setStyleSheet("border-width: 1px;\n"
-"border-style: solid;\n"
-"border-color: rgb(0, 0, 0)")
+                                         "border-style: solid;\n"
+                                         "border-color: rgb(0, 0, 0)")
         self.display_label.setText("")
         self.display_label.setObjectName("display_label")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(490, 60, 211, 438))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.verticalLayout.setSizeConstraint(
+            QtWidgets.QLayout.SetDefaultConstraint)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.cls_label = QtWidgets.QLabel(self.verticalLayoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.cls_label.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.cls_label.sizePolicy().hasHeightForWidth())
         self.cls_label.setSizePolicy(sizePolicy)
         self.cls_label.setObjectName("cls_label")
         self.verticalLayout.addWidget(self.cls_label)
@@ -80,13 +83,16 @@ class Ui_MainWindow(object):
         self.radioButton_12.setObjectName("radioButton_12")
         self.verticalLayout.addWidget(self.radioButton_12)
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(590, 510, 161, 51))
+        self.horizontalLayoutWidget.setGeometry(
+            QtCore.QRect(590, 510, 161, 51))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout = QtWidgets.QHBoxLayout(
+            self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.prev_label = QtWidgets.QToolButton(self.horizontalLayoutWidget)
-        self.prev_label.setStyleSheet("border-width: 0px;border-width: 1px;border-style: solid")
+        self.prev_label.setStyleSheet(
+            "border-width: 0px;border-width: 1px;border-style: solid")
         self.prev_label.setIconSize(QtCore.QSize(32, 32))
         self.prev_label.setArrowType(QtCore.Qt.LeftArrow)
         self.prev_label.setObjectName("prev_label")
@@ -97,7 +103,8 @@ class Ui_MainWindow(object):
         self.pos_label.setObjectName("pos_label")
         self.horizontalLayout.addWidget(self.pos_label)
         self.next_label = QtWidgets.QToolButton(self.horizontalLayoutWidget)
-        self.next_label.setStyleSheet("border-width: 0px;border-width: 1px;border-style: solid")
+        self.next_label.setStyleSheet(
+            "border-width: 0px;border-width: 1px;border-style: solid")
         self.next_label.setIconSize(QtCore.QSize(32, 32))
         self.next_label.setArrowType(QtCore.Qt.RightArrow)
         self.next_label.setObjectName("next_label")
@@ -119,24 +126,30 @@ class Ui_MainWindow(object):
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(720, 60, 91, 431))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(
+            self.verticalLayoutWidget_2)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.quality_label = QtWidgets.QLabel(self.verticalLayoutWidget_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.quality_label.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.quality_label.sizePolicy().hasHeightForWidth())
         self.quality_label.setSizePolicy(sizePolicy)
         self.quality_label.setObjectName("quality_label")
         self.verticalLayout_2.addWidget(self.quality_label)
-        self.radioButton_good = QtWidgets.QRadioButton(self.verticalLayoutWidget_2)
+        self.radioButton_good = QtWidgets.QRadioButton(
+            self.verticalLayoutWidget_2)
         self.radioButton_good.setObjectName("radioButton_good")
         self.verticalLayout_2.addWidget(self.radioButton_good)
-        self.radioButton_bad = QtWidgets.QRadioButton(self.verticalLayoutWidget_2)
+        self.radioButton_bad = QtWidgets.QRadioButton(
+            self.verticalLayoutWidget_2)
         self.radioButton_bad.setObjectName("radioButton_bad")
         self.verticalLayout_2.addWidget(self.radioButton_bad)
-        spacerItem = QtWidgets.QSpacerItem(20, 342, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem = QtWidgets.QSpacerItem(
+            20, 342, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_2.addItem(spacerItem)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -167,7 +180,8 @@ class Ui_MainWindow(object):
         self.radioButton_1.setText(_translate("MainWindow", "1-食管中段两腔心切面"))
         self.radioButton_2.setText(_translate("MainWindow", "2-食管中段左室长轴切面"))
         self.radioButton_3.setText(_translate("MainWindow", "3-食管中段主动脉瓣短轴切面"))
-        self.radioButton_4.setText(_translate("MainWindow", "4-食管中段右室流入-流出道切面"))
+        self.radioButton_4.setText(_translate(
+            "MainWindow", "4-食管中段右室流入-流出道切面"))
         self.radioButton_5.setText(_translate("MainWindow", "5-食管中段双腔静脉切面"))
         self.radioButton_6.setText(_translate("MainWindow", "6-食管上段升主动脉短轴切面"))
         self.radioButton_7.setText(_translate("MainWindow", "7-食管上段升主动脉长轴切面"))

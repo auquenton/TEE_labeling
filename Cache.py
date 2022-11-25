@@ -20,13 +20,15 @@ class Cache:
         for root, dirs, files in os.walk(folder_path):
 
             for dir in dirs:
-                for root_sub,dir_sub,files_sub in os.walk(folder_path+"/"+dir):
+                for root_sub, dir_sub, files_sub in os.walk(folder_path+"/"+dir):
                     for filename in files_sub:
                         if get_video_type(filename) == None or filename == "label_info.pkl":
                             continue
                         else:
-                            logger.debug("video:"+folder_path+"/"+dir+"/"+filename)
-                            self.video_list.append([folder_path + "/" +dir+"/"+filename, -1, 0])
+                            logger.debug("video:"+folder_path +
+                                         "/"+dir+"/"+filename)
+                            self.video_list.append(
+                                [folder_path + "/" + dir+"/"+filename, -1, 0])
                     break
 
             for filename in files:
@@ -35,7 +37,8 @@ class Cache:
                     continue
                 else:
                     logger.debug("video:"+folder_path+"/"+filename)
-                    self.video_list.append([folder_path + "/" + filename, -1, 0])
+                    self.video_list.append(
+                        [folder_path + "/" + filename, -1, 0])
             break
 
         logger.info(f"video_list: {self.video_list}")
@@ -61,7 +64,8 @@ class Cache:
         #     os.rename(file_path, new_file_path)
         #     logger.info(f"{file_path} -> {file_path}" + "_cls" + str(label))
         with open(opened_foldername + "/label_info.pkl", "wb") as f:
-            pickle.dump((Cache.video_list, Cache.video_count, Cache.pointer), f)
+            pickle.dump(
+                (Cache.video_list, Cache.video_count, Cache.pointer), f)
         logger.info("flush完成, 程序退出")
 
     def load(self, tuple):

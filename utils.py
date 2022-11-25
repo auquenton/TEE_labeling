@@ -8,7 +8,7 @@ class VideoType(Enum):
     REG = 0
     DCOM = 1
     NULL = 2
-    
+
 
 class ClsType:
     cls_dict = {
@@ -25,7 +25,7 @@ class ClsType:
         "8": "8",
         "9": "9",
         "10": "10",
-        "11":"11",
+        "11": "11",
         "12": "12",
     }
 
@@ -38,7 +38,8 @@ def get_video_type(file_path):
     if file_path == "":
         return VideoType.NULL
     try:
-        suffix = file_path.split("/")[-1][file_path.split("/")[-1].index(".") + 1 :]
+        suffix = file_path.split(
+            "/")[-1][file_path.split("/")[-1].index(".") + 1:]
     except Exception as e:
         logger.info("文件无后缀名")
         return VideoType.DCOM
